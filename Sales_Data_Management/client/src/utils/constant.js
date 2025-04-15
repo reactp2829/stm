@@ -1,0 +1,1 @@
+export const FILE_UPLOAD_END_POINT = "http://localhost:3000/api/v1/upload"

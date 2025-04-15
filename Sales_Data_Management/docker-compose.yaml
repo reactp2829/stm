@@ -1,0 +1,39 @@
+services:
+  frontend:
+    build:
+      context: ./client
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    networks:
+      - sdmClient
+  backend:
+    build:
+      context: ./server
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - sdmClient
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports :
+      - "27017:27017"
+    networks:
+      - sdmClient
+    volumes:
+      - mongo-data:/data/db
+
+networks:
+   sdmClient:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver : local
